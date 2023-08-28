@@ -20,8 +20,7 @@ function DecimalABinario(num) {
    }
  return numero.join("")
 }
-
-console.log(DecimalABinario(36))
+//console.log(DecimalABinario(36))
 
 module.exports = {
    BinarioADecimal,
