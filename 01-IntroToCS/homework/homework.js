@@ -19,6 +19,7 @@ function DecimalABinario(num) {
       num=Math.floor(num/2)
    }
  return numero.join("")
+ 
 }
 //console.log(DecimalABinario(36))
 
