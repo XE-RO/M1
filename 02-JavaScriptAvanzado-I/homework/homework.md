@@ -13,15 +13,15 @@ var b = 10;
 var c = function (a, b, c) {
    var x = 10;
    console.log(x);        // 10
-   console.log(a);        // 5
+   console.log(a);        // 8
    var f = function (a, b, c) {
       b = a;
-      console.log(b);     // 5
+      console.log(b);     // 8
       b = c;
       var x = 5;
    };
    f(a, b, c);
-   console.log(b);       // 10
+   console.log(b);       // 9
 };
 c(8, 9, 10);
 console.log(b);          // 10
@@ -30,8 +30,8 @@ console.log(x);          // 1
 
 ```javascript
 console.log(bar);       //undefined
-console.log(baz);       // 2
-foo();                  // Hola!
+console.log(baz);       // reference error
+foo();                  //no se ejecuta el resto si hay un error
 function foo() {
    console.log('Hola!');
 }
@@ -68,7 +68,7 @@ if (true) {
    console.log(instructor);          //The flash
    console.log(pm);                  //Reverse Flash
 }
-console.log(instructor);             // Tony
+console.log(instructor);             // The flash
 console.log(pm);                     // Franco
 ```
 
@@ -84,7 +84,7 @@ console.log(pm);                     // Franco
 "4" - 2            // 2
 "4px" - 2          // NaN
 7 / 0              // infinity
-{}[0]              // undefined
+{}[0]              // undefined (no existe la propiedad Key 0 dentro del arreglo)
 parseInt("09")     // 9
 5 && 2             // 2
 2 && 5             // 5
@@ -103,8 +103,8 @@ parseInt("09")     // 9
 
 ```javascript
 function test() {
-   console.log(a);             
-   console.log(foo());         
+   console.log(a);        //undefied     
+   console.log(foo());    //2
 
    var a = 1;
    function foo() {
@@ -112,7 +112,7 @@ function test() {
    }
 }
 
-test();                 //undefined   //2
+test();                 /
 ```
 
 Y el de este código? :
@@ -128,7 +128,7 @@ function getFood(food) {
    return snack;
 }
 
-getFood(false); 
+getFood(false);  //undefined
 ```
 
 ### This
