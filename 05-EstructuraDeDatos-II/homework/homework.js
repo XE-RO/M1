@@ -10,9 +10,69 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   search(isEven), donde isEven es una función que retorna true cuando recibe por parámetro un número par, busca un nodo cuyo valor sea un número par.
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
-function LinkedList() {}
+function LinkedList() {
+  this.head=null
+}
+function Node(value) {
+  this.value=value
+  this.next=null
+}
 
-function Node(value) {}
+//            AGREGAR ELEMENTOS
+
+LinkedList.prototype.add=function(arg){
+  let current=this.head
+  let node=new Node(arg)
+  if(this.head===null){
+    this.head=node
+  }else{
+    while(current.next!=null){
+      current=current.next
+    }
+    current.next=node
+  }
+}
+
+//        ELIMINAR ULTIMO ELEMENTO
+
+LinkedList.prototype.remove=function(){
+  let current=this.head
+  if(this.head===null)return null
+  if(this.head.next===null){
+    this.head=null
+    return current.value
+  }
+    while(current.next.next!=null){
+      current=current.next
+    }
+    let aux=current.next
+    current.next=null
+    return aux.value
+  }
+
+
+
+
+
+  LinkedList.prototype.search=function(arg){
+  let current=this.head
+  if(typeof arg ==='function'){
+    while(current!=null){
+      if(arg(current.value)){
+        return current.value
+      }
+      current=current.next
+    }
+  }
+  while(current){
+    if(current.value===arg){
+      return current.value
+    }
+    current=current.next
+  }
+  return null
+}
+
 
 /* EJERCICIO 2
 Implementar la clase HashTable.
@@ -27,7 +87,44 @@ La clase debe tener los siguientes métodos:
 
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
-function HashTable() {}
+function HashTable() {
+  this.table=[]
+  this.numBuckets=35
+}
+
+HashTable.prototype.hash=function(key){
+  let hash=0
+  for (let i = 0; i < key.length; i++) {
+    hash+=key.charCodeAt(i)
+  }
+  return hash % this.numBuckets
+}
+
+HashTable.prototype.set=function(key,value){
+  if(typeof key !== 'string')throw TypeError('Keys must be strings')
+  let index=this.hash(key)
+  if(this.table[index]==null){
+    this.table[index]={}
+  }
+  this.table[index][key]=value //se añade en la posicion del array (el bucket) una propiedad key y su valor pasado por parametro
+}
+
+HashTable.prototype.get=function(key){
+  let index=this.hash(key)
+  if(this.table[index]!=undefined){ //this.table[buscarlugar]---> preguntando si hay algo
+    return this.table[index][key]                               //retorna el valor que pasaron en key
+  }
+
+}
+HashTable.prototype.hasKey=function(key){
+  let index=this.hash(key)
+  if(this.table[index][key]){
+    return true
+  }else{
+    return false
+  }
+
+}
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
