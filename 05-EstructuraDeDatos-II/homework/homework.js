@@ -56,15 +56,15 @@ LinkedList.prototype.remove=function(){
 
   LinkedList.prototype.search=function(arg){
   let current=this.head
-  if(typeof arg ==='function'){
+  if(typeof arg ==='function'){         // EN CASO DE QUE SEA UNA FUNCION
     while(current!=null){
-      if(arg(current.value)){
+      if(arg(current.value)===true){
         return current.value
       }
       current=current.next
     }
   }
-  while(current){
+  while(current){                    //EN CASO DE QUE SEA UN VALOR (NORMAL)
     if(current.value===arg){
       return current.value
     }
