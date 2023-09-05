@@ -9,7 +9,93 @@
   - breadthFirstForEach: recorre el árbol siguiendo el orden breadth first (BFS)
   El ábrol utilizado para hacer los tests se encuentra representado en la imagen bst.png dentro del directorio homework.
 */
-function BinarySearchTree() {}
+function BinarySearchTree(value) {
+   this.value=value
+   this.right=null
+   this.left=null
+}
+BinarySearchTree.prototype.insert=function(value){
+   if(value>this.value){
+      if(this.right!=null){
+         this.right.insert(value)
+      }else{
+         this.right=new BinarySearchTree(value)
+      }
+   }else{
+      if(this.left!=null){
+         this.left.insert(value)
+      }else{
+         this.left=new BinarySearchTree(value)
+      }
+   }
+}
+BinarySearchTree.prototype.size=function(){
+   let contador=0
+   if(this.value!=null){
+      contador++
+   }
+   if(this.left!=null){
+      contador++
+      this.left.size()
+   }
+   if(this.right!=null){
+      contador++
+      this.right.size()
+   }
+   return contador
+}
+BinarySearchTree.prototype.contains=function(value){
+   if(value==this.value){
+      return true
+   }else{
+      if(value>this.value){
+         if(this.right==null){
+            return false
+         }
+         return this.right.contains(value)
+      }
+      if(value<this.value){
+         if(this.left===null){
+            return false
+         }
+         return this.left.contains(value)
+      }
+   }
+}
+
+BinarySearchTree.prototype.depthFirstForEach=function(cb,pedido){
+   if(pedido=="in-order" || pedido==undefined){
+      if(this.left && this.left.depthFirstForEach(cb,pedido));
+      cb(this.value)
+      if(this.right && this.right.depthFirstForEach(cb,pedido));
+   }
+   if(pedido=="pre-order"){
+      cb(this.value)
+      if(this.left && this.left.depthFirstForEach(cb,pedido));
+      if(this.right && this.right.depthFirstForEach(cb,pedido));
+   }
+   if(pedido=="post-order"){
+      if(this.left && this.left.depthFirstForEach(cb,pedido));
+      if(this.right && this.right.depthFirstForEach(cb,pedido));
+      cb(this.value)
+   }
+}
+
+BinarySearchTree.prototype.breadthFirstForEach=function(cb,value=[]){
+   if(this.left!=null){
+      value.push(this.left)
+   }
+   if(this.right!=null){
+      value.push(this.right)
+   }
+   cb(this.value)
+   
+   if(value.length>0){
+      value.shift().breadthFirstForEach(cb,value)
+   }
+}
+
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
