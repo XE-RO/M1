@@ -16,7 +16,15 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    let suma=0
+    for(let i=0 ; i<array.length ; i++){
+        if(Array.isArray(array[i])){
+            suma+=countArray(array[i])
+        }else{
+            suma+=array[i]
+        }
+    }
+    return suma
 }
 
 
@@ -39,7 +47,16 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
-
+    let counter=0
+    for(let prop in obj){
+        if(typeof(obj[prop])==='object'){
+            if(!Array.isArray(obj[prop])){
+                counter+=countProps(obj[prop])
+            }
+        }
+        counter++
+    }
+    return counter
 }
 
 
@@ -53,7 +70,17 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
+    let counter=0;
+    let current=this.head;
 
+    while(current){
+        if(isNaN(Number(current.value))){
+            counter++;
+            current.value="Kiricocho";
+        }
+        current=current.next;
+    }
+    return counter;
 }
 
 
@@ -67,6 +94,17 @@ LinkedList.prototype.changeNotNumbers = function(){
 
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
+    let nueva=new Queue
+
+    while(queueOne.size()||queueTwo.size()){
+        let first=queueOne.dequeue()
+        let second=queueTwo.dequeue()
+
+        if(first) nueva.enqueue(first)
+        if(second) nueva.enqueue(second)
+
+    }
+    return nueva
 
 }
 
@@ -82,6 +120,12 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
+    return function(num){
+        return num*multiplier
+
+    }
+
+    
 
 }
 
@@ -89,6 +133,11 @@ var closureMult = function(multiplier) {
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
+    let suma=this.value
+    if(this.value==null) return 0
+    if(this.left)suma+=this.left.sum()
+    if(this.right)suma+=this.right.sum()
+    return suma
 
 }
 
